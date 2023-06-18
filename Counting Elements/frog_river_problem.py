@@ -42,3 +42,52 @@ Write an efficient algorithm for the following assumptions:
 N and X are integers within the range [1..100,000];
 each element of array A is an integer within the range [1..X].
 """
+
+def solution(X,A):
+  covered = [False] * (X + 1)
+  uncovered_count = X
+
+  for second, position in enumerate(A):
+    if not covered[position]:
+      covered[position] = True
+      uncovered_count -= 1
+
+      if uncovered_count == 0:
+        return second
+      
+  return -1
+
+X = 5
+A = [1,4,2,3,5,4]
+
+earliest_time = solution(X, A)
+print("Earliest Time: ", earliest_time)
+
+"""
+In this code, we start by initializing a boolean list called covered with False values, representing the positions across the river. We also initialize uncovered_count to the total number of positions that need to be covered.
+
+We then iterate through the A array, which contains the positions where leaves fall at each second. For each second, we check if the position is already covered. If it's not covered, we mark it as covered, decrement the uncovered_count by 1, and check if all positions are now covered (uncovered_count == 0). If so, we return the current second as the earliest time when the frog can jump to the other side.
+
+If the frog is never able to jump to the other side, the function will return -1.
+
+The time complexity of this solution is O(N), where N is the length of the A array. This is because we iterate through the array once, and the operations within the loop are constant time.
+
+"""
+
+###CODILITY
+
+def solution(x, a):
+  river_position = [False] * (x + 1)
+
+  for time in range(len(a)):
+    pos = a[time]
+    if not river_position[pos]:
+      river_position[pos] = True
+      x -= 1
+
+      if x==0:
+        return time
+      
+  return -1
+
+print(solution(9, [1,4,2,3,5,4,1]))
